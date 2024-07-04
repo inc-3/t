@@ -2,8 +2,8 @@ from bs4 import BeautifulSoup as bs
 import requests as rs
 import time
 
-email = "61561372020924"
-pwd = "sadia33"
+email = input("Email:")
+pwd = input("Pass:")
 
 headers = {
     'Host': 'www.facebook.com',
@@ -63,9 +63,5 @@ cookies.update(resp.cookies.get_dict())
 
 cookie_list = [f"{key}={value}" for key, value in cookies.items()]
 
-if "c_user" in cookies:
-    print("ID LOGGED IN!")
-    print(email, pwd)
-    print(cookie_list)
-else:
-    print('Invalid')
+
+print(cookie_list)
