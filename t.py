@@ -1,9 +1,12 @@
 from bs4 import BeautifulSoup as bs
 import requests as rs
 import time
+import os
 
-email = input("Email:")
-pwd = input("Pass:")
+os.system('clear')
+
+email = input("Email: ")
+pwd = input("Pass: ")
 
 headers = {
     'Host': 'www.facebook.com',
@@ -54,7 +57,7 @@ body = {
     "email": email,
     "login_source": "comet_headerless_login",
     "next": "",
-    "encpass": f"#PWD_BROWS=R:0:{round(time.time())}:{pwd}"
+    "encpass": f"#PWD_BROWSER:0:{round(time.time())}:{pwd}"
 }
 
 resp = rs.post(url, cookies=cookies_final, headers=headers, data=body, allow_redirects=False)
@@ -63,5 +66,6 @@ cookies.update(resp.cookies.get_dict())
 
 cookie_list = [f"{key}={value}" for key, value in cookies.items()]
 
+cookie = "; ".join(cookie_list)
 
-print(cookie_list)
+print(cookie)
