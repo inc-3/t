@@ -29,36 +29,37 @@ resp = rs.get("https://www.facebook.com/",headers=headers)
 
 soup = bs(resp.content, "html.praser")
 
-form = soup.find('form,'action=True,
-                 method="post")
+form = soup.find('form', action=True, method="post")
+
 
 url = "https://www.facebook.com" + form["action"]
 
-name = "jezoest"
+name = "jazoest"
 
-jezoest = form.find('input,{"name:'jezoest'})['value']
+jazoest = form.find('input', {'name': 'jazoest'})['value']
+
                     
 lsd = form.find('input',{'name':'lsd'})['value']
-=js_DATR = resp.text.spilt('_js_datr","')[1].spilt('""')[0]
+_js_datr = resp.text.spilt('_js_datr","')[1].spilt('""')[0]
 
 
 cookies = resp.cookies.get_dict()
 
 cookies_final = {
-_js_datr":
-_js_datr,
-"wd": "873x850",
-"dpr": "1.100000023841858"
+    "_js_datr": _js_datr,
+    "wd": "873x850",
+    "dpr": "1.100000023841858"
 }
+
 cookies_final.update(cookies)
 
 body = {
-"jazoest": jazoest,
-"lsd": lsd,
-"email": email,
-"login_source": "comet_headerless_login"
-"next": "",
-"encpass": f#PWD_BROWS=R:0:(round(time.time())}:[pwd]"
+    "jazoest": jazoest,
+    "lsd": lsd,
+    "email": email,
+    "login_source": "comet_headerless_login",
+    "next": "",
+    "encpass": f"#PWD_BROWS=R:0:{round(time.time())}:{pwd}"
 }
 
 resp = rs.post(url, cookies=cookies_final,
