@@ -2,8 +2,8 @@ from bs4 import BeautifulSoup as bs
 import requests as rs
 import time
 
-email = "gdyuwshdjs"
-pwd = "hsxns"
+email = "61561372020924"
+pwd = "sadia33"
 
 headers = {
     'Host': 'www.facebook.com',
@@ -25,23 +25,18 @@ headers = {
     'Accept-Language': 'en-GB,en;q=0.9',
 }
 
-resp = rs.get("https://www.facebook.com/",headers=headers)
+resp = rs.get("https://www.facebook.com/", headers=headers)
 
-soup = bs(resp.content, "html.praser")
+soup = bs(resp.content, "html.parser")
 
 form = soup.find('form', action=True, method="post")
 
-
 url = "https://www.facebook.com" + form["action"]
 
-name = "jazoest"
-
 jazoest = form.find('input', {'name': 'jazoest'})['value']
+lsd = form.find('input', {'name': 'lsd'})['value']
 
-                    
-lsd = form.find('input',{'name':'lsd'})['value']
-_js_datr = resp.text.spilt('_js_datr","')[1].spilt('""')[0]
-
+_js_datr = resp.text.split('_js_datr","')[1].split('""')[0]
 
 cookies = resp.cookies.get_dict()
 
@@ -62,17 +57,15 @@ body = {
     "encpass": f"#PWD_BROWS=R:0:{round(time.time())}:{pwd}"
 }
 
-resp = rs.post(url, cookies=cookies_final,
-headers=headers, data=body, allow_redirects=False)
+resp = rs.post(url, cookies=cookies_final, headers=headers, data=body, allow_redirects=False)
 
 cookies.update(resp.cookies.get_dict())
 
-cookie_list = [f"{key}=(value)" for key, value in
-cookies.items()]
+cookie_list = [f"{key}={value}" for key, value in cookies.items()]
 
-if "c_user" in cookie:
-    print ("iD LOGGED iN!")
-    print (email, pwd)
-    print (cookie)
+if "c_user" in cookies:
+    print("ID LOGGED IN!")
+    print(email, pwd)
+    print(cookie_list)
 else:
-    print('invalid')     
+    print('Invalid')
