@@ -1,4 +1,4 @@
-def filter_uids(file_path, names_to_filter):
+def filter_uids(file_path, first_names_to_filter):
     # Read input data from the file
     with open(file_path, 'r', encoding='utf-8') as file:
         uid_data = file.read()
@@ -6,7 +6,7 @@ def filter_uids(file_path, names_to_filter):
     # Split the input data into lines (assuming each UID is on a new line)
     uid_list = uid_data.strip().split('\n')
 
-    # Create a filtered list to hold the UIDs that match the provided names exactly
+    # Create a filtered list to hold the UIDs that match the provided first names
     filtered_uids = []
 
     # Check each UID and name pair
@@ -17,12 +17,16 @@ def filter_uids(file_path, names_to_filter):
             uid_part = parts[0]
             name_part = parts[1].strip()
 
-            # Check if the full name (name_part) matches exactly in names_to_filter
-            if name_part in names_to_filter:
+            # Extract the first name from the name part
+            first_name = name_part.split()[0]  # Get the first word as the first name
+
+            # Check if the first name matches any in first_names_to_filter
+            if first_name in first_names_to_filter:
                 filtered_uids.append(uid)
 
     # Return the filtered UIDs
     return filtered_uids
+
 
 # Specify the file path and names to filter
 file_path = '/sdcard/2.txt'  # Replace with the actual path to your file
