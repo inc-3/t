@@ -1,3 +1,5 @@
+import re
+
 def filter_uids(file_path, names_to_filter):
     # Read input data from the file
     with open(file_path, 'r', encoding='utf-8') as file:
@@ -6,19 +8,11 @@ def filter_uids(file_path, names_to_filter):
     # Split the input data into lines
     uid_list = uid_data.strip().split('\n')
 
-    # Normalize names to avoid case-sensitivity issues
-    normalized_names_to_filter = [name.lower() for name in names_to_filter]
+    # Compile a regular expression pattern for matching names
+    name_pattern = r'\b(' + '|'.join(re.escape(name) for name in names_to_filter) + r')\b'
 
-    # Filter UIDs that contain any of the names in the list
-    filtered_uids = []
-    for uid in uid_list:
-        # Extract the name part after the UID (assuming format: uid|name)
-        parts = uid.split('|')
-        if len(parts) == 2:
-            name = parts[1].strip().lower()  # Normalize the name part
-            # Check if the name contains any of the names in the filter list
-            if any(filter_name in name for filter_name in normalized_names_to_filter):
-                filtered_uids.append(uid)
+    # Filter UIDs that match the exact name pattern
+    filtered_uids = [uid for uid in uid_list if re.search(name_pattern, uid)]
 
     # Return the filtered UIDs
     return filtered_uids
