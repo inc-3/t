@@ -1,4 +1,4 @@
-def filter_uids(file_path, first_names_to_filter):
+def filter_uids(file_path, names_to_filter):
     # Read input data from the file
     with open(file_path, 'r', encoding='utf-8') as file:
         uid_data = file.read()
@@ -6,7 +6,7 @@ def filter_uids(file_path, first_names_to_filter):
     # Split the input data into lines
     uid_list = uid_data.strip().split('\n')
 
-    # Create a filtered list to hold the UIDs that match the provided first names
+    # Create a filtered list to hold the UIDs that match the provided names
     filtered_uids = []
 
     # Check each UID and name pair
@@ -14,15 +14,26 @@ def filter_uids(file_path, first_names_to_filter):
         # Split the UID and the name part by '|'
         parts = uid.split('|')
         if len(parts) == 2:
-            uid_part = parts[0]
+            uid_part = parts[0].strip()
             name_part = parts[1].strip()
 
-            # Extract the first name from the name part
-            first_name = name_part.split()[0].strip().lower()  # Get the first word as the first name and convert to lower case
+            # Split name part into components
+            name_components = name_part.split()
+            first_name = name_components[0]  # Get the first word as the first name
 
-            # Check if the first name matches any in first_names_to_filter (also in lower case)
-            if first_name in (name.lower() for name in first_names_to_filter):
+            # Check if the first name matches any in names_to_filter
+            if first_name in names_to_filter or name_part in names_to_filter:
                 filtered_uids.append(uid)
+                continue
+
+            # Check for last name matches (if there are more components)
+            if len(name_components) > 2:
+                # Check combinations of first name with surname and last name
+                for i in range(1, len(name_components)):
+                    combined_name = ' '.join(name_components[:i + 1])
+                    if combined_name in names_to_filter:
+                        filtered_uids.append(uid)
+                        break
 
     # Return the filtered UIDs
     return filtered_uids
