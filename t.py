@@ -1,5 +1,3 @@
-import re
-
 def filter_uids(file_path, names_to_filter):
     # Read input data from the file
     with open(file_path, 'r', encoding='utf-8') as file:
@@ -19,9 +17,12 @@ def filter_uids(file_path, names_to_filter):
             uid_part = parts[0]
             name_part = parts[1].strip()
 
-            # Check if the name part exactly matches any of the names in the list
-            if any(name == name_part for name in names_to_filter):
+            # Check if the full name (name_part) matches exactly in names_to_filter
+            if name_part in names_to_filter:
                 filtered_uids.append(uid)
+
+    # Return the filtered UIDs
+    return filtered_uids
 
     # Return the filtered UIDs
     return filtered_uids
