@@ -18,7 +18,7 @@ def filter_uids(file_path, names_to_filter):
     return filtered_uids
 
 # Specify the file path and names to filter
-file_path = '/sdcard/2.txt'  # Replace with the actual path to your file
+file_path = '/sdcard/5.txt'  # Replace with the actual path to your file
 names_to_filter = ["Md", "Md.", "Abdul", "Akhtar", "Ali", "Amin", "Anis", "Asif", "Aziz", "Bashir", "Bilal",
         "Faisal", "Farhan", "Habib", "Hassan", "Hossain", "Imran", "Iqbal", "Jamil", "Kamal", "Karim", 
     "Khan", "Mahmud", "Moin", "Monir", "Nasir", "Nawaz", "Rahim", "Rashid", "Salim", 
