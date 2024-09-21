@@ -6,12 +6,22 @@ def filter_uids(file_path, names_to_filter):
     # Split the input data into lines
     uid_list = uid_data.strip().split('\n')
 
+    # Normalize names to avoid case-sensitivity issues
+    normalized_names_to_filter = [name.lower() for name in names_to_filter]
+
     # Filter UIDs that contain any of the names in the list
-    filtered_uids = [uid for uid in uid_list if any(name in uid for name in names_to_filter)]
+    filtered_uids = []
+    for uid in uid_list:
+        # Extract the name part after the UID (assuming format: uid|name)
+        parts = uid.split('|')
+        if len(parts) == 2:
+            name = parts[1].strip().lower()  # Normalize the name part
+            # Check if the name contains any of the names in the filter list
+            if any(filter_name in name for filter_name in normalized_names_to_filter):
+                filtered_uids.append(uid)
 
     # Return the filtered UIDs
     return filtered_uids
-
 
 # Specify the file path and names to filter
 file_path = '/sdcard/2.txt'  # Replace with the path to your input file
