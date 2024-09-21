@@ -11,8 +11,16 @@ def filter_uids(file_path, names_to_filter):
     # Compile a regular expression pattern for exact name matching
     name_pattern = r'\b(?:' + '|'.join(re.escape(name) for name in names_to_filter) + r')\b'
 
-    # Filter UIDs that match the exact names from the provided list
-    filtered_uids = [uid for uid in uid_list if re.search(name_pattern, uid)]
+    # Filter UIDs where the name after the '|' matches exactly one of the provided names
+    filtered_uids = []
+    for uid in uid_list:
+        # Split the UID and the name part by '|'
+        parts = uid.split('|')
+        if len(parts) == 2:
+            name_part = parts[1]
+            # Check if the name part exactly matches one of the names
+            if re.search(name_pattern, name_part):
+                filtered_uids.append(uid)
 
     # Return the filtered UIDs
     return filtered_uids
