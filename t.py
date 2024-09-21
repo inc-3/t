@@ -8,23 +8,23 @@ def filter_uids(file_path, names_to_filter):
     # Split the input data into lines (assuming each UID is on a new line)
     uid_list = uid_data.strip().split('\n')
 
-    # Compile a regular expression pattern for exact name matching
-    name_pattern = r'\b(?:' + '|'.join(re.escape(name) for name in names_to_filter) + r')\b'
-
-    # Filter UIDs where the name after the '|' matches exactly one of the provided names
+    # Create a filtered list to hold the UIDs that match the provided names exactly
     filtered_uids = []
+
+    # Check each UID and name pair
     for uid in uid_list:
         # Split the UID and the name part by '|'
         parts = uid.split('|')
         if len(parts) == 2:
-            name_part = parts[1]
-            # Check if the name part exactly matches one of the names
-            if re.search(name_pattern, name_part):
+            uid_part = parts[0]
+            name_part = parts[1].strip()
+
+            # Check if the name part exactly matches any of the names in the list
+            if any(name == name_part for name in names_to_filter):
                 filtered_uids.append(uid)
 
     # Return the filtered UIDs
     return filtered_uids
-
 # Specify the file path and names to filter
 file_path = '/sdcard/7.txt'  # Replace with the actual path to your file
 names_to_filter = ["Md", "Md.", "Abdul", "Akhtar", "Ali", "Amin", "Anis", "Asif", "Aziz", "Bashir", "Bilal",
