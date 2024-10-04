@@ -1,5 +1,6 @@
 import requests
 import random
+from termcolor import colored
 
 url = "https://graph.facebook.com/auth/login"
 
@@ -126,8 +127,10 @@ if __name__ == "__main__":
             if cookies:
                 # If cookies were successfully retrieved, update the entry in the output file
                 outfile.write(f"{uid}|{password}|{cookies}\n")
+                print(colored(f"{uid}|{password}|{cookies}", "green"))  # Print success in green
             else:
-                # If cookies could not be retrieved, write the original entry (or handle as needed)
+                # If cookies could not be retrieved, print and log the failure in red
                 outfile.write(f"{uid}|{password}|login_failed\n")
+                print(colored(f"{uid}|{password}|login_failed", "red"))  # Print failure in red
 
     print("Process completed.")
