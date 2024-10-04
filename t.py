@@ -111,7 +111,7 @@ if __name__ == "__main__":
     output_file = input("Enter the output file path: ")
 
     # Open the input and output files
-    with open(input_file, "r") as infile, open(output_file, "w") as outfile:
+    with open(input_file, "r") as infile, open(output_file, "a") as outfile:
         # Read each line from the input file
         for line in infile:
             line = line.strip()
