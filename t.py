@@ -84,6 +84,8 @@ def inc3_cookies(email, pwd):
     req = requests.Session()
     response = req.post(url, data=data, headers=headers).json()
 
+    print(response)
+
     # Check if session cookies are present in the response
     if "session_cookies" in response:
         cookies = {cookie['name']: cookie['value'] for cookie in response['session_cookies']}
