@@ -66,8 +66,8 @@ def inc3_cookies(email, pwd):
         'User-Agent': ugen,  # Use static User-Agent for debugging
         'Content-Type': 'application/x-www-form-urlencoded',
         'Host': 'graph.facebook.com',
-        'X-FB-Net-HNI': str(random.randint(20000, 40000)),
-        'X-FB-SIM-HNI': str(random.randint(20000, 40000)),
+        #'X-FB-Net-HNI': str(random.randint(20000, 40000)),
+        #'X-FB-SIM-HNI': str(random.randint(20000, 40000)),
         'X-FB-Connection-Type': 'MOBILE.LTE',
         'X-Tigon-Is-Retry': 'False',
         'x-fb-session-id': 'nid=jiZ+yNNBgbwC;pid=Main;tid=132;nc=1;fc=0;bc=0;cid=d29d67d37eca387482a8a5b740f84f62',
