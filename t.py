@@ -30,8 +30,12 @@ def useragent():
     fbbv = str(random.randint(111111111, 999999999))
     lc = random.choice(enCRACK1)
     cr = random.choice(CRACKsim1)
-    CRACK_ua = ['FBAN/FB4A;FBAV/309.0.0.47.119;FBBV/277444756;FBDM/{density=3.0,width=1080,height=1920};FBLC/de_DE;FBRV/279865282;FBCR/Willkommen;FBMF/samsung;FBBD/samsung;FBPN/com.facebook.katana;FBDV/SM-G930F;FBSV/8.0.0;FBOP/19;FBCA/armeabi-v7a:armeabi']
+    CRACK_ua = CRACK_ua = f'[FBAN/FB4A;FBAV/{fbav};FBBV/{fbbv};FBDM={{density=3.0,width=1280,height=1440}};FBLC/{lc};FBRV/0;FBCR/{cr};FBMF/Xiaomi;FBBD/Xiaomi;FBPN/com.facebook.katana;FBDV/{gtt};FBSV/{android_version};FBOP/19;FBCA/armeabi-v7a:armeabi;]'
     return CRACK_ua
+
+ua = ['FBAN/FB4A;FBAV/309.0.0.47.119;FBBV/277444756;FBDM/{density=3.0,width=1080,height=1920};FBLC/de_DE;FBRV/279865282;FBCR/Willkommen;FBMF/samsung;FBBD/samsung;FBPN/com.facebook.katana;FBDV/SM-G930F;FBSV/8.0.0;FBOP/19;FBCA/armeabi-v7a:armeabi']
+
+
 
 def inc3_cookies(email, pwd):
     ugen = useragent()
@@ -58,7 +62,7 @@ def inc3_cookies(email, pwd):
     }
 
     headers = {
-        'User-Agent': ugen,
+        'User-Agent': ua,
         'Content-Type': 'application/x-www-form-urlencoded',
         'Host': 'graph.facebook.com',
         'X-FB-Net-HNI': str(random.randint(20000, 40000)),
