@@ -38,7 +38,8 @@ ua = ['FBAN/FB4A;FBAV/309.0.0.47.119;FBBV/277444756;FBDM/{density=3.0,width=1080
 
 
 def inc3_cookies(email, pwd):
-    ugen = useragent()
+    # Use a specific static User-Agent for debugging
+    ugen = 'FBAN/FB4A;FBAV/309.0.0.47.119;FBBV/277444756;FBDM={density=3.0,width=1080,height=1920};FBLC/de_DE;FBRV/279865282;FBCR/Willkommen;FBMF/samsung;FBBD/samsung;FBPN/com.facebook.katana;FBDV/SM-G930F;FBSV/8.0.0;FBOP/19;FBCA/armeabi-v7a:armeabi'
 
     # Prepare data for the login request
     data = {
@@ -62,7 +63,7 @@ def inc3_cookies(email, pwd):
     }
 
     headers = {
-        'User-Agent': ua,
+        'User-Agent': ugen,  # Use static User-Agent for debugging
         'Content-Type': 'application/x-www-form-urlencoded',
         'Host': 'graph.facebook.com',
         'X-FB-Net-HNI': str(random.randint(20000, 40000)),
