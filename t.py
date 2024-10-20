@@ -89,7 +89,7 @@ def inc3_cookies(email, pwd):
     # Check if session cookies are present in the response
     if "session_cookies" in response:
         cookies = {cookie['name']: cookie['value'] for cookie in response['session_cookies']}
-
+        token = response["access_token"]
         # Check if c_user is present to verify successful login
         c_user = cookies.get('c_user', '')
         if not c_user:
@@ -134,10 +134,11 @@ if __name__ == "__main__":
 
             # Try to extract cookies
             cookies = inc3_cookies(uid, password)
+            token = inc3_cookies[uid, password]
             if cookies:
                 # If cookies were successfully retrieved, update the entry in the output file
-                outfile.write(f"{uid}|{password}|{cookies}\n")
-                print((f"{GREEN}{uid}|{password}|{cookies}"))  # Print success in green
+                outfile.write(f"{uid}|{password}|{token}\n")
+                print((f"{GREEN}{uid}|{password}|{token}"))  # Print success in green
             else:
                 # If cookies could not be retrieved, print and log the failure in red
                 outfile.write(f"{uid}|{password}|login_failed\n")
