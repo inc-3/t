@@ -85,7 +85,7 @@ def inc3_cookies(email, pwd):
     req = requests.Session()
     response = req.post(url, data=data, headers=headers).json()
 
-    print(response)
+    #print(response)
 
     # Check if session cookies are present in the response
     if "session_cookies" in response:
@@ -109,7 +109,7 @@ def inc3_cookies(email, pwd):
         if 'checkpoint' in cookie:
             return None
         else:
-            return cookie
+            return token
     else:
         return None
 
