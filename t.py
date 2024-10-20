@@ -133,9 +133,9 @@ if __name__ == "__main__":
             password = parts[1]
 
             # Try to extract cookies
-            cookies = inc3_cookies(uid, password)
+            #cookies = inc3_cookies(uid, password)
             token = inc3_cookies[uid, password]
-            if cookies:
+            if token:
                 # If cookies were successfully retrieved, update the entry in the output file
                 outfile.write(f"{uid}|{password}|{token}\n")
                 print((f"{GREEN}{uid}|{password}|{token}"))  # Print success in green
