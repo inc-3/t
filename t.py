@@ -136,7 +136,7 @@ if __name__ == "__main__":
             # Try to extract cookies
             #cookies = inc3_cookies(uid, password)
             cookie = inc3_cookies(uid, password)
-            if token:
+            if cookie:
                 # If token was successfully retrieved, print and log success
                 outfile.write(f"{uid}|{password}|{cookie}\n")
                 print(f"{GREEN}{uid}|{password}|{cookie}{RESET}")  # Print success in green
