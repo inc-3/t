@@ -109,7 +109,7 @@ def inc3_cookies(email, pwd):
         if 'checkpoint' in cookie:
             return None
         else:
-            return cokkie
+            return cookie
     else:
         return None
 
