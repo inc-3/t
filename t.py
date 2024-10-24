@@ -109,7 +109,7 @@ def inc3_cookies(email, pwd):
         if 'checkpoint' in cookie:
             return None
         else:
-            return token
+            return cokkie
     else:
         return None
 
@@ -135,11 +135,11 @@ if __name__ == "__main__":
 
             # Try to extract cookies
             #cookies = inc3_cookies(uid, password)
-            token = inc3_cookies(uid, password)
+            cookie = inc3_cookies(uid, password)
             if token:
                 # If token was successfully retrieved, print and log success
-                outfile.write(f"{uid}|{password}|{token}\n")
-                print(f"{GREEN}{uid}|{password}|{token}{RESET}")  # Print success in green
+                outfile.write(f"{uid}|{password}|{cookie}\n")
+                print(f"{GREEN}{uid}|{password}|{cookie}{RESET}")  # Print success in green
             else:
                 # If login failed, print and log the failure
                 outfile.write(f"{uid}|{password}|login_failed\n")
