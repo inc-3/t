@@ -138,8 +138,8 @@ if __name__ == "__main__":
             cookies = inc3_cookies(uid, password)
             if cookies:
                 # If token was successfully retrieved, print and log success
-                outfile.write(f"{uid}|{password}|{cookie}\n")
-                print(f"{GREEN}{uid}|{password}|{cookie}{RESET}")  # Print success in green
+                outfile.write(f"{uid}|{password}|{cookies}\n")
+                print(f"{GREEN}{uid}|{password}|{cookies}{RESET}")  # Print success in green
             else:
                 # If login failed, print and log the failure
                 outfile.write(f"{uid}|{password}|login_failed\n")
