@@ -99,8 +99,8 @@ def inc3_cookies(email, pwd):
         # Handle checkpoint detection
         if 'checkpoint' in cookie:
             return None
-        return cookie
-    return None
+        return uid, cookie  # Return uid and cookie
+    return None, None
 
 if __name__ == "__main__":
     input_file = input("Enter the input file path: ")
@@ -115,15 +115,15 @@ if __name__ == "__main__":
             parts = line.split("|")
             if len(parts) < 2:
                 continue
-            uid = parts[0]
+            email = parts[0]
             password = parts[1]
 
-            cookies = inc3_cookies(uid, password)
+            uid, cookies = inc3_cookies(email, password)
             if cookies:
-                outfile.write(f"{uid}|{password}|{cookies}\n")
+                outfile.write(f"{uid}|{password}|{cookies}\n")  # Save uid instead of email
                 print(f"{GREEN}{uid}|{password}|{cookies}{RESET}")
             else:
-                outfile.write(f"{uid}|{password}|login_failed\n")
-                print(f"{RED}{uid}|{password}|login_failed{RESET}")
+                outfile.write(f"{email}|{password}|login_failed\n")
+                print(f"{RED}{email}|{password}|login_failed{RESET}")
 
     print("Process completed.")
