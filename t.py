@@ -78,6 +78,7 @@ def inc3_cookies(email, pwd):
     # Ensure response is valid JSON
     try:
         response_json = response.json()
+        print(response)
     except ValueError:
         return None
 
