@@ -120,8 +120,8 @@ if __name__ == "__main__":
 
             uid, cookies = inc3_cookies(email, password)
             if cookies:
-                outfile.write(f"{uid}|{password}|{cookies}\n")  # Save uid instead of email
-                print(f"{GREEN}{uid}|{password}|{cookies}{RESET}")
+                outfile.write(f"{uid}|{password}|{cookies}|{email}\n")  # Save uid|pass|cookies|email
+                print(f"{GREEN}{uid}|{password}|{cookies}|{email}{RESET}")
             else:
                 outfile.write(f"{email}|{password}|login_failed\n")
                 print(f"{RED}{email}|{password}|login_failed{RESET}")
