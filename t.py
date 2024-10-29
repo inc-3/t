@@ -78,11 +78,11 @@ def inc3_cookies(email, pwd):
     # Ensure response is valid JSON
     try:
         response_json = response.json()
-        print(response)
     except ValueError:
         return None
 
     if "session_cookies" in response_json:
+        print (response_json)
         cookies = {cookie['name']: cookie['value'] for cookie in response_json['session_cookies']}
         uid = cookies.get('c_user', '')  # Save c_user value as uid
         if not uid:
