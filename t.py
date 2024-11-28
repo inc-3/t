@@ -114,14 +114,14 @@ if __name__ == "__main__":
                 continue
 
             parts = line.split("|")
-            if len(parts) < 2:
+            if len(parts) < 3:
                 continue
             email = parts[0]
             password = parts[1]
 
             uid, cookies = inc3_cookies(email, password)
             if cookies:
-                outfile.write(f"{uid}|{password}|{cookies}|{email}\n")  # Save uid|pass|cookies|email
+                outfile.write(f"{uid}|{password}|{cookies}\n")  # Save uid|pass|cookies|email
                 print(f"{GREEN}{uid}|{password}|{cookies}|{email}{RESET}")
             else:
                 outfile.write(f"{email}|{password}|login_failed\n")
